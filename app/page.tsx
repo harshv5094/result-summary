@@ -1,21 +1,7 @@
 'use client'
 import data from '@/lib/data.json'
+import Image from 'next/image'
 import { useRef } from 'react'
-
-const ListItem = ({
-  color,
-  name,
-  score
-}: {
-  color: string
-  name: string
-  score: number
-}) => (
-  <section className={`flex justify-between ${color}`}>
-    <div className="text-left">{name}</div>
-    <div className="text-left">{score}/100</div>
-  </section>
-)
 
 export default function Home() {
   const result = useRef(data)
@@ -43,8 +29,26 @@ export default function Home() {
             </p>
           </section>
         </div>
-        <div className="-z-10 bg-white pl-0 pt-28 md:pt-0 md:pl-14 w-full md:w-[20em] h-[25em] md:h-full rounded-3xl p-5">
-          <div className="font-bold p-5 text-2xl">Summary</div>
+        <div className="-z-10 bg-white pl-0 pt-28 md:pt-0 md:pl-12 w-full md:w-[21em] h-[25em] md:h-full rounded-3xl p-5">
+          <section className="font-bold p-5 text-2xl">Summary</section>
+          {result.current.map((item, index) => {
+            return (
+              <section
+                key={index}
+                className={`flex justify-between m-5 roundex-xl `}
+              >
+                <div className="flex justify-start text-lg gap-2">
+                  <Image
+                    src={`${item.icon}`}
+                    width={20}
+                    height={20}
+                    alt={`${item.category} icon`}
+                  />
+                  <h1 className={`${item.color}`}>{item.category}</h1>
+                </div>
+              </section>
+            )
+          })}
         </div>
       </article>
     </main>
